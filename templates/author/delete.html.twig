@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer l'auteur{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Supprimer l'auteur</h1>
+
+    <p>Voulez-vous vraiment supprimer l'auteur "{{ author.username }}" ?</p>
+
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+        <a href="{{ path('app_affiche') }}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

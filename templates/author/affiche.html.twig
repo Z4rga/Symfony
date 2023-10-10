@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AuthorController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des auteurs</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                      <th>ID</th>
+                <th>Nom d'utilisateur</th>
+                <th>Email</th>
+                <th>Actions</th> {# Ajoutez une colonne "Actions" pour les liens edit et delete #}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>  {% for a in author %}   </tr>
+                <tr>
+                 <td>{{ a.id }}</td>
+                    <td>{{ a.username }}</td>
+                    <td>{{ a.email }}</td>
+                     <td>
+                        <a href="{{ path('app_edit_author', {'id': a.id}) }}">Edit</a>
+                      <td>
+    <a href="{{ path('app_delete_author', {'id': a.id}) }}" class="delete-author-link">Delete</a>
+</td>
+<script>
+document.querySelectorAll('.delete-author-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('Voulez-vous vraiment supprimer cet auteur ?')) {
+            const url = this.getAttribute('href');
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest', // Indique une requête AJAX
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redirigez l'utilisateur vers la liste des auteurs ou une autre page appropriée
+                    window.location.href = "{{ path('app_affiche') }}";
+                } else {
+                    // Gérez les erreurs en conséquence
+                    alert('Une erreur s'est produite lors de la suppression.');
+                }
+            });
+        }
+    });
+});
+</script>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
