@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AuthorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 class Author
@@ -18,6 +19,9 @@ class Author
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
+
+
+    #[ORM\Column(length: 255)]
 
     public function getId(): ?int
     {
